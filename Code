@@ -1,50 +1,58 @@
-// Employee Class
-class Employee {
-    constructor(name, salary, position, department) {
-        this.name = name;
-        this.salary = salary;
-        this.position = position;
-        this.department = department;
-    }
-
-    getDetails() {
-        return `${this.name}, Position: ${this.position}, Salary: $${this.salary}`;
-    }
-}
-
-/// Department Class
-class Department {
-    constructor(name) {
-        this.name = name;
-        this.employees = [];
-    }
-
-    addEmployee(employee) {
-        this.employees.push(employee);
-    }
-
-    getDepartmentSalary() {
-        return this.employees.reduce((total, employee) => total + employee.salary, 0);
-    }
-
-    calculateTotalSalaryWithBonus() {
-        return this.employees.reduce((total, employee) => {
-            if (employee instanceof Manager) {
-                return total + employee.salary + employee.bonus;
-            }
-            return total + employee.salary;
-        }, 0);
-    }
-}
-
-// Manager Class that Inherits from Employee
-class Manager extends Employee {
-    constructor(name, salary, position, department, bonus) {
-        super(name, salary, position, department);
-        this.bonus = bonus;
-    }
-
-    getDetails() {
-        return `${super.getDetails()}, Bonus: $${this.bonus}`;
-    }
-}
+// Commit: "Initialize company structure with departments and employees"
+const company = {
+    departments: [
+        {
+            departmentName: "Sales",
+            employees: [
+                {
+                    name: "Alice",
+                    salary: 70000,
+                    subordinates: [
+                        {
+                            name: "Bob",
+                            salary: 50000,
+                            subordinates: []
+                        },
+                        {
+                            name: "Charlie",
+                            salary: 60000,
+                            subordinates: []
+                        }
+                    ]
+                },
+                {
+                    name: "David",
+                    salary: 80000,
+                    subordinates: []
+                }
+            ]
+        },
+        {
+            departmentName: "Engineering",
+            employees: [
+                {
+                    name: "Eve",
+                    salary: 90000,
+                    subordinates: [
+                        {
+                            name: "Frank",
+                            salary: 60000,
+                            subordinates: [
+                                {
+                                    name: "Grace",
+                                    salary: 50000,
+                                    subordinates: []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Heidi",
+                    salary: 75000,
+                    subordinates: []
+                }
+            ]
+        }
+    ]
+};
