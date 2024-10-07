@@ -90,3 +90,17 @@ function calculateSubordinateSalary(subordinates) {
     return totalSalary;
 }
 
+// Commit: "Calculate total salary for all departments in the company"
+function calculateCompanySalary(company) {
+    let totalCompanySalary = 0;
+
+    for (const department of company.departments) {
+        totalCompanySalary += calculateDepartmentSalary(department);
+    }
+
+    return totalCompanySalary;
+}
+
+// Example Usage
+const totalSalary = calculateCompanySalary(company);
+console.log(`Total Salary Expenditure for the Company: $${totalSalary}`);
