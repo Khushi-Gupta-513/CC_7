@@ -56,3 +56,37 @@ const company = {
         }
     ]
 };
+
+// Commit: "Create recursive function to calculate department salary"
+function calculateDepartmentSalary(department) {
+    let totalSalary = 0;
+
+    // Loop through each employee in the department
+    for (const employee of department.employees) {
+        // Add the employee's salary to the total
+        totalSalary += employee.salary;
+
+        // Recursively add the salaries of the subordinates
+        if (employee.subordinates && employee.subordinates.length > 0) {
+            totalSalary += calculateSubordinateSalary(employee.subordinates);
+        }
+    }
+    
+    return totalSalary;
+}
+
+function calculateSubordinateSalary(subordinates) {
+    let totalSalary = 0;
+
+    for (const subordinate of subordinates) {
+        totalSalary += subordinate.salary;
+
+        // If the subordinate has their own subordinates, recurse
+        if (subordinate.subordinates && subordinate.subordinates.length > 0) {
+            totalSalary += calculateSubordinateSalary(subordinate.subordinates);
+        }
+    }
+
+    return totalSalary;
+}
+
