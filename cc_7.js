@@ -1,0 +1,106 @@
+// Commit: "Initialize company structure with departments and employees"
+const company = {
+    departments: [
+        {
+            departmentName: "Sales",
+            employees: [
+                {
+                    name: "Alice",
+                    salary: 70000,
+                    subordinates: [
+                        {
+                            name: "Bob",
+                            salary: 50000,
+                            subordinates: []
+                        },
+                        {
+                            name: "Charlie",
+                            salary: 60000,
+                            subordinates: []
+                        }
+                    ]
+                },
+                {
+                    name: "David",
+                    salary: 80000,
+                    subordinates: []
+                }
+            ]
+        },
+        {
+            departmentName: "Engineering",
+            employees: [
+                {
+                    name: "Eve",
+                    salary: 90000,
+                    subordinates: [
+                        {
+                            name: "Frank",
+                            salary: 60000,
+                            subordinates: [
+                                {
+                                    name: "Grace",
+                                    salary: 50000,
+                                    subordinates: []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Heidi",
+                    salary: 75000,
+                    subordinates: []
+                }
+            ]
+        }
+    ]
+};
+
+// Commit: "Create recursive function to calculate department salary"
+function calculateDepartmentSalary(department) {
+    let totalSalary = 0;
+
+    // Loop through each employee in the department
+    for (const employee of department.employees) {
+        // Add the employee's salary to the total
+        totalSalary += employee.salary;
+
+        // Recursively add the salaries of the subordinates
+        if (employee.subordinates && employee.subordinates.length > 0) {
+            totalSalary += calculateSubordinateSalary(employee.subordinates);
+        }
+    }
+    
+    return totalSalary;
+}
+
+function calculateSubordinateSalary(subordinates) {
+    let totalSalary = 0;
+
+    for (const subordinate of subordinates) {
+        totalSalary += subordinate.salary;
+
+        // If the subordinate has their own subordinates, recurse
+        if (subordinate.subordinates && subordinate.subordinates.length > 0) {
+            totalSalary += calculateSubordinateSalary(subordinate.subordinates);
+        }
+    }
+
+    return totalSalary;
+}
+
+// Commit: "Calculate total salary for all departments in the company"
+function calculateCompanySalary(company) {
+    let totalCompanySalary = 0;
+
+    for (const department of company.departments) {
+        totalCompanySalary += calculateDepartmentSalary(department);
+    }
+
+    return totalCompanySalary;
+}
+
+// Example Usage
+const totalSalary = calculateCompanySalary(company);
+console.log(`Total Salary Expenditure for the Company: $${totalSalary}`);
